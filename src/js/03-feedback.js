@@ -37,10 +37,14 @@ function storageValueToInput() {
     
 }
 
-console.log(JSON.parse(localStorage.getItem(KEY_STORAGE)))
+
 form.addEventListener('submit', handlerClear);
 function handlerClear(evt) {
     evt.preventDefault();
+    if (localStorage.length > 0 &&
+    Object.keys(localStorage).includes(KEY_STORAGE)) {
+console.log(JSON.parse(localStorage.getItem(KEY_STORAGE)))
+    }
     form.email.value = '';
     form.message.value = '';
      localStorage.removeItem(KEY_STORAGE);
