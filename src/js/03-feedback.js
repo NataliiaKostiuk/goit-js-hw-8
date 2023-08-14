@@ -12,11 +12,12 @@ storageValueToInput();
 
 form.addEventListener('input',
     throttle(evt => {
-    if (evt.target.name === 'email') {
-        formValue.email = form.email.value;
-        console.log(form.email.value);
+        if (evt.target.name === 'email') {
+        KEY_STORAGE.email = evt.target.value;
+        formValue.email = form.email.value;  
     }
-     if (evt.target.name === 'message') {
+        if (evt.target.name === 'message') {
+         KEY_STORAGE.message = evt.target.value;
          formValue.message = form.message.value;
      } 
         localStorage.setItem(KEY_STORAGE, JSON.stringify(formValue))
@@ -29,10 +30,10 @@ function storageValueToInput() {
     localStorage.length > 0 &&
     Object.keys(localStorage).includes(KEY_STORAGE)
   ) { 
-      const obj = JSON.parse(localStorage.getItem(KEY_STORAGE));
-      form.email.value = obj.email;
-      form.message.value = obj.message;
-     
+      form.email.value = JSON.parse(localStorage.getItem(KEY_STORAGE)).email;
+      form.message.value = JSON.parse(localStorage.getItem(KEY_STORAGE)).message;
+      formValue.email = JSON.parse(localStorage.getItem(KEY_STORAGE)).email;
+      formValue.message = JSON.parse(localStorage.getItem(KEY_STORAGE)).message;   
   }
     
 }
@@ -45,6 +46,8 @@ function handlerClear(evt) {
     Object.keys(localStorage).includes(KEY_STORAGE)) {
 console.log(JSON.parse(localStorage.getItem(KEY_STORAGE)))
     }
+    formValue.email = '';
+    formValue.message = '';
     form.email.value = '';
     form.message.value = '';
      localStorage.removeItem(KEY_STORAGE);
